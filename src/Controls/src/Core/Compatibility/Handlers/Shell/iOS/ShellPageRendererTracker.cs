@@ -44,29 +44,6 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 			}
 		}
 
-		public UIViewController? ViewController2
-		{
-			get
-			{
-				if (_rendererRef is null)
-					return null;
-
-				_rendererRef.TryGetTarget(out var target);
-				return target;
-			}
-			set
-			{
-				if (value is null)
-				{
-					_rendererRef = null;
-					return;
-				}
-
-				_rendererRef = new WeakReference<UIViewController>(value);
-				OnRendererSet();
-			}
-		}
-
 		public Page? Page
 		{
 			get { return _page; }
