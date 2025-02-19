@@ -151,6 +151,25 @@ namespace Microsoft.Maui.Controls.Handlers.Items2
 			UpdatePlatformSelection();
 		}
 
+#pragma warning disable RS0016 // Add public types and members to the declared API
+		public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
+#pragma warning restore RS0016 // Add public types and members to the declared API
+		{
+			if (cell.ContentView != null && cell.ContentView.Subviews.Length > 0)
+			{
+				var firstChild = cell.ContentView.Subviews[0];
+
+				if (ItemsView.SelectionMode != SelectionMode.None)
+				{
+					firstChild.AccessibilityTraits |= UIAccessibilityTrait.Button;
+				}
+				else
+				{
+					firstChild.AccessibilityTraits &= ~UIAccessibilityTrait.Button;
+				}
+			}
+		}
+
 		void SynchronizePlatformSelectionWithSelectedItems()
 		{
 			var selectedItems = ItemsView.SelectedItems.ToHashSet();
