@@ -9,6 +9,12 @@ public static class MauiProgram
 			.UseMauiMaps()
 #endif
 			.UseMauiApp<App>()
+			.ConfigureMauiHandlers(handlers =>
+			{
+#if IOS || MACCATALYST
+				handlers.AddHandler<Microsoft.Maui.Controls.CollectionView, Microsoft.Maui.Controls.Handlers.Items2.CollectionViewHandler2>();
+#endif
+			})
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("Dokdo-Regular.ttf", "Dokdo");
